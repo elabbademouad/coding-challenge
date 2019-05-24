@@ -10,14 +10,22 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using CodingChallengePersistance;
+using CodingChallengeBusiness.Interfaces;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace CodingChallengeAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                    .SetBasePath(env.ContentRootPath)
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
+                    .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -25,6 +33,16 @@ namespace CodingChallengeAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddCors();
+            services.AddDirectoryBrowser();
+            //ApplicationMapperConfig mapperConfig = new ApplicationMapperConfig(Configuration);
+            //mapperConfig.Initialize();
+            services.AddSingleton(Configuration);
+            //Unit of work DI  
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //Service DI (Application layer)
+        
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -37,12 +55,20 @@ namespace CodingChallengeAPI
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), Configuration["ApiSettings:MediaPath"])),
+            })
+            .UseCors(builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+            )
+            .UseHttpsRedirection()
+            .UseMvc();
         }
     }
 }
