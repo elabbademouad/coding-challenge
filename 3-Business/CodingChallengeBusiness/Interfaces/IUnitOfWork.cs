@@ -4,7 +4,7 @@ namespace CodingChallengeBusiness.Interfaces
     {
          IUserRepository UserRepository { get;}
          IShopRepository ShopRepository { get;}
-         IPreferredShopRepository PreferredShopRepository { get;}
+         IUserShopPreferenceRepository UserShopPreferenceRepository { get;}
     }
 
 }

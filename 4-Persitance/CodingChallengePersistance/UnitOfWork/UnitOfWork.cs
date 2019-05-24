@@ -8,12 +8,16 @@ namespace CodingChallengePersistance
     public class UnitOfWork : IUnitOfWork
     {
         private IUserRepository _userRepository;
-        private IPreferredShopRepository _preferredShop;
+        private IUserShopPreferenceRepository _userShopPreference;
         private IShopRepository _shopRepository;
         private DataContext _context;
         public UnitOfWork(IConfiguration config)
         {
             _context=new DataContext(config["DataBaseSettings:ConnectionsString"]);
+        }
+        public UnitOfWork()
+        {
+          _context=new DataContext();   
         }
         public IUserRepository UserRepository { 
             get
@@ -36,14 +40,14 @@ namespace CodingChallengePersistance
                 return _shopRepository;
             } 
         }
-        public IPreferredShopRepository PreferredShopRepository { 
+        public IUserShopPreferenceRepository UserShopPreferenceRepository { 
             get
             { 
-                if(_preferredShop ==null)
+                if(_userShopPreference ==null)
                 {
-                    _preferredShop=new PreferredShopRepository(_context);
+                    _userShopPreference=new UserShopPreferenceRepository(_context);
                 }
-                return _preferredShop;
+                return _userShopPreference;
             } 
         }
     }

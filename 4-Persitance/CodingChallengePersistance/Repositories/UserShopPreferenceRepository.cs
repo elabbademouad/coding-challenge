@@ -7,9 +7,9 @@ using CodingChallengePersistance.Context;
 
 namespace CodingChallengePersistance.Repositories
 {
-    public class PreferredShopRepository :Repository<User>, IPreferredShopRepository
+    public class UserShopPreferenceRepository :Repository<User>, IUserShopPreferenceRepository
     {
-       public PreferredShopRepository(DataContext context):base(context){
+       public UserShopPreferenceRepository(DataContext context):base(context){
 
        }
     }

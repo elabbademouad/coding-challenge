@@ -8,7 +8,7 @@ namespace CodingChallengePersistance.Context
         private string connectionString;
         public DbSet<User> Users { get; set; }
         public DbSet<Shop> Shops { get; set; }
-        public DbSet<PreferredShop> PreferredShops { get; set; }
+        public DbSet<UserShopPreference> UserShopPreferences { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if(string.IsNullOrEmpty(connectionString))
