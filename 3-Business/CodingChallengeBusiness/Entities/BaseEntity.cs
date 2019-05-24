@@ -1,3 +1,4 @@
+using System;
 using CodingChallengeBusiness.Interfaces;
 
 namespace CodingChallengeBusiness.Entities
@@ -8,5 +9,7 @@ namespace CodingChallengeBusiness.Entities
     public class BaseEntity : IBaseEntity
     {
         public int Id { get; set; }
+        public DateTime CreatedDate{get;set;}
+        public DateTime UpdatedDate{get;set;}
     }
 }
