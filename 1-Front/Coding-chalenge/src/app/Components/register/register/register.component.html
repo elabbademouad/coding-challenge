@@ -1,42 +1,50 @@
-<div class="card register-card" >
+<div class="card register-card">
   <div class="card-content">
-      <div class="row">
-        <div class="col s6">
-            <span class="grey-text ">Choose your position</span>
-            <app-google-map (onChangePosition)="handleChangePosition($event)" ></app-google-map>
-        </div>
-        <div class="col s6">
-            <form #registerForm="ngForm"  class="row">  
-                <div class="input-field col s6">
-                    <span class="grey-text ">First name :</span>
-                    <input placeholder="First name" maxlength="20" name="firstName" #firstName="ngModel"   [(ngModel)]="register.firstName" type="text">            
-                </div>
-                <div class="input-field col s6">
-                    <span class="grey-text ">Last name :</span>
-                    <input placeholder="Last name" [(ngModel)]="register.lastName" name="lastName" type="text">
-                </div>
-                <div class="input-field col s12">
-                    <span class="grey-text ">Email :</span>
-                    <input placeholder="Email" #email="ngModel" name="email" required [(ngModel)]="register.email" type="text">
-                    <span *ngIf="email.invalid && (email.dirty || email.touched)" style="color: red;" >* user name is required</span>
-                    <span  style="color: red;" >{{regiterErrorMessage}}</span>
-
-                </div>
-                <div class="input-field col s12">
-                    <span class="grey-text ">Passwords :</span>
-                    <input #password="ngModel" name="password" required placeholder="Passwords" [(ngModel)]="register.password"  type="password">
-                    <span *ngIf="password.invalid && (password.dirty || password.touched)" style="color: red;" >* password is required</span>
-                </div>
-                <div class="input-field col s12">
-                    <span class="grey-text ">Confirm passwords :</span>
-                    <input placeholder="Passwords" #confirmPassword="ngModel"  [(ngModel)]="confirmPass" name="confirmPassword" type="password">
-                    <span *ngIf="password.value !== confirmPassword.value && (confirmPassword.dirty || confirmPassword.touched)" style="color: red;" >*confirm password no match password</span>
-                </div>
-                <div class="col s12">
-                    <input [disabled]="registerForm.invalid || password.value !== confirmPassword.value" class="waves-effect waves-light blue darken-2 btn right" type="submit" value="Submit" (click)="handleClickRegister()"/>
-                </div>
-            </form>
-        </div>
+    <div class="row">
+      <div class="col s6">
+        <span class="grey-text ">Choose your position</span>
+        <app-google-map (onChangePosition)="handleChangePosition($event)"></app-google-map>
       </div>
+      <div class="col s6">
+        <form #registerForm="ngForm" class="row">
+          <div class="input-field col s6">
+            <span class="grey-text ">First name :</span>
+            <input placeholder="First name" maxlength="20" name="firstName" #firstName="ngModel"
+              [(ngModel)]="register.firstName" type="text">
+          </div>
+          <div class="input-field col s6">
+            <span class="grey-text ">Last name :</span>
+            <input placeholder="Last name" [(ngModel)]="register.lastName" name="lastName" type="text">
+          </div>
+          <div class="input-field col s12">
+            <span class="grey-text ">Email :</span>
+            <input placeholder="Email" #email="ngModel" name="email" required [(ngModel)]="register.email" type="text">
+            <span *ngIf="email.invalid && (email.dirty || email.touched)" style="color: red;">* user name is
+              required</span>
+            <span style="color: red;">{{regiterErrorMessage}}</span>
+
+          </div>
+          <div class="input-field col s12">
+            <span class="grey-text ">Passwords :</span>
+            <input #password="ngModel" name="password" required placeholder="Passwords" [(ngModel)]="register.password"
+              type="password">
+            <span *ngIf="password.invalid && (password.dirty || password.touched)" style="color: red;">* password is
+              required</span>
+          </div>
+          <div class="input-field col s12">
+            <span class="grey-text ">Confirm passwords :</span>
+            <input placeholder="Passwords" #confirmPassword="ngModel" [(ngModel)]="confirmPass" name="confirmPassword"
+              type="password">
+            <span *ngIf="password.value !== confirmPassword.value && (confirmPassword.dirty || confirmPassword.touched)"
+              style="color: red;">*confirm password no match password</span>
+          </div>
+          <div class="col s12">
+            <input [disabled]="registerForm.invalid || password.value !== confirmPassword.value"
+              class="waves-effect waves-light blue darken-2 btn right" type="submit" value="Submit"
+              (click)="handleClickRegister()" />
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

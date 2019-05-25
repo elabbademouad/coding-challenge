@@ -1,9 +1,10 @@
-.login-card{
-    width: 400px;
-    margin: auto; 
-    margin-top: 6%; 
-    margin-bottom: 10%;
+.login-card {
+  width: 400px;
+  margin: auto;
+  margin-top: 6%;
+  margin-bottom: 10%;
 }
-.error{
-    color: red;
+
+.error {
+  color: red;
 }
