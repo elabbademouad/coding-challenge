@@ -14,7 +14,9 @@ using CodingChallengePersistance;
 using CodingChallengeBusiness.Interfaces;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
-
+using CodingChallengeAPI.Helpers;
+using Microsoft.AspNetCore.Authentication;
+using Business=CodingChallengeBusiness.Services;
 namespace CodingChallengeAPI
 {
     public class Startup
@@ -41,9 +43,12 @@ namespace CodingChallengeAPI
             services.AddSingleton(Configuration);
             //Unit of work DI  
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //Service DI (Application layer)
-        
+            //Service DI (Business layer)
+            services.AddScoped<Business.AuthenticationService>();        
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // configure basic authentication 
+            services.AddAuthentication("Basic")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthentication>("Basic", null);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +73,7 @@ namespace CodingChallengeAPI
                     .AllowAnyMethod()
             )
             .UseHttpsRedirection()
+            .UseAuthentication()
             .UseMvc();
         }
     }
