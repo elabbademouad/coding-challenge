@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 namespace CodingChallengePersistance.Context
 {
+    /// <summary>
+    /// Dataontext for manage database
+    /// </summary>
     public class DataContext : DbContext
     {
         private string connectionString;
@@ -11,18 +14,18 @@ namespace CodingChallengePersistance.Context
         public DbSet<UserShopPreference> UserShopPreferences { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(string.IsNullOrEmpty(connectionString))
-                connectionString=Constants.DefaultConnectionString;
+            if (string.IsNullOrEmpty(connectionString))
+                connectionString = Constants.DefaultConnectionString;
             optionsBuilder.UseSqlite(connectionString);
         }
 
-        public DataContext():base()
+        public DataContext() : base()
         {
-            
+
         }
         public DataContext(string connectionString)
         {
-            this.connectionString=connectionString;
+            this.connectionString = connectionString;
         }
     }
 }

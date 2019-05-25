@@ -10,7 +10,7 @@ using CodingChallengeBusiness.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Business=CodingChallengeBusiness.Services;
+using Business = CodingChallengeBusiness.Services;
 
 namespace CodingChallengeAPI.Helpers
 {
@@ -33,31 +33,31 @@ namespace CodingChallengeAPI.Helpers
             _authenticationService = authenticationService;
         }
 
-        protected override  Task<AuthenticateResult> HandleAuthenticateAsync()
+        protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             if (!Request.Headers.ContainsKey("Authorization"))
                 return Task.FromResult(AuthenticateResult.Fail(Messages.MissingHeader));
 
             AuthenticationResponse response = null;
-            try 
+            try
             {
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(':');
-                var request=new LoginRequest();
-                request.Email=credentials[0];
-                request.Password=credentials[1];
-                response =  _authenticationService.LogIn(request);
-                if(!response.IsSuccess)
+                var request = new LoginRequest();
+                request.Email = credentials[0];
+                request.Password = credentials[1];
+                response = _authenticationService.LogIn(request);
+                if (!response.IsSuccess)
                 {
                     return Task.FromResult(AuthenticateResult.Fail(response.Message));
                 }
-            } 
-            catch 
+            }
+            catch
             {
                 return Task.FromResult(AuthenticateResult.Fail(Messages.InvalidHeader));
             }
-            var claims = new[] { 
+            var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier,response.User.Id.ToString()),
                 new Claim(ClaimTypes.Name, response.User.Email)
             };

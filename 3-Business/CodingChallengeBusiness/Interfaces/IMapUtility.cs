@@ -1,5 +1,8 @@
 namespace CodingChallengeBusiness.Interfaces
 {
+    /// <summary>
+    ///  interface for manage map services
+    /// </summary>
     public interface IMapUtility
     {
         /// <summary>

@@ -13,42 +13,45 @@ namespace CodingChallengePersistance
         private DataContext _context;
         public UnitOfWork(IConfiguration config)
         {
-            _context=new DataContext(config["DataBaseSettings:ConnectionsString"]);
+            _context = new DataContext(config["DataBaseSettings:ConnectionsString"]);
         }
         public UnitOfWork()
         {
-          _context=new DataContext();   
+            _context = new DataContext();
         }
-        public IUserRepository UserRepository { 
+        public IUserRepository UserRepository
+        {
             get
-            { 
-                if(_userRepository ==null)
+            {
+                if (_userRepository == null)
                 {
-                    _userRepository=new UserRepository(_context);
+                    _userRepository = new UserRepository(_context);
                 }
                 return _userRepository;
-            } 
+            }
         }
 
-        public IShopRepository ShopRepository { 
+        public IShopRepository ShopRepository
+        {
             get
-            { 
-                if(_shopRepository ==null)
+            {
+                if (_shopRepository == null)
                 {
-                    _shopRepository=new ShopRepository(_context);
+                    _shopRepository = new ShopRepository(_context);
                 }
                 return _shopRepository;
-            } 
+            }
         }
-        public IUserShopPreferenceRepository UserShopPreferenceRepository { 
+        public IUserShopPreferenceRepository UserShopPreferenceRepository
+        {
             get
-            { 
-                if(_userShopPreference ==null)
+            {
+                if (_userShopPreference == null)
                 {
-                    _userShopPreference=new UserShopPreferenceRepository(_context);
+                    _userShopPreference = new UserShopPreferenceRepository(_context);
                 }
                 return _userShopPreference;
-            } 
+            }
         }
     }
 }

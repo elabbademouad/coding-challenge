@@ -16,7 +16,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using CodingChallengeAPI.Helpers;
 using Microsoft.AspNetCore.Authentication;
-using Business=CodingChallengeBusiness.Services;
+using Business = CodingChallengeBusiness.Services;
 using CodingChallengePersistance.Utilities;
 
 namespace CodingChallengeAPI
@@ -43,9 +43,9 @@ namespace CodingChallengeAPI
             services.AddSingleton(Configuration);
             //Persitance DI  
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IMapUtility,MapUtility>();
+            services.AddScoped<IMapUtility, MapUtility>();
             //Service DI (Business layer)
-            services.AddScoped<Business.AuthenticationService>();        
+            services.AddScoped<Business.AuthenticationService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // configure basic authentication 
             services.AddAuthentication("Basic")

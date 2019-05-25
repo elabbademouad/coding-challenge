@@ -7,10 +7,11 @@ using CodingChallengePersistance.Context;
 
 namespace CodingChallengePersistance.Repositories
 {
-    public class UserShopPreferenceRepository :Repository<User>, IUserShopPreferenceRepository
+    public class UserShopPreferenceRepository : Repository<UserShopPreference>, IUserShopPreferenceRepository
     {
-       public UserShopPreferenceRepository(DataContext context):base(context){
+        public UserShopPreferenceRepository(DataContext context) : base(context)
+        {
 
-       }
+        }
     }
 }

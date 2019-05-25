@@ -4,13 +4,19 @@ using System.Linq.Expressions;
 using CodingChallengeBusiness.Interfaces;
 using CodingChallengePersistance.Context;
 using System.Linq;
+using CodingChallengeBusiness.Entities;
+
 namespace CodingChallengePersistance.Repositories
 {
-    public class Repository<T> : IRepository<T, int> where T : class, IBaseEntity
+    /// <summary>
+    /// Repository implementation
+    /// </summary>
+    /// <typeparam name="T">entity</typeparam>
+    public class Repository<T> : IRepository<T, int> where T : BaseEntity
     {
         private DataContext _context;
         public Repository(DataContext Context)
-        {           
+        {
             _context = Context;
         }
         public List<T> GetAll()
@@ -19,38 +25,40 @@ namespace CodingChallengePersistance.Repositories
         }
         public T GetById(int id)
         {
-            return _context.Set<T>().FirstOrDefault(e=>e.Id==id);
+            return _context.Set<T>().FirstOrDefault(e => e.Id == id);
         }
         public T Create(T entity)
         {
-            entity.CreatedDate=DateTime.Now;
-            entity.UpdatedDate=DateTime.Now;
-            var entityInserted=_context.Set<T>().Add(entity);    
-            if(_context.SaveChanges()==1)
+            entity.CreatedDate = DateTime.Now;
+            entity.UpdatedDate = DateTime.Now;
+            var entityInserted = _context.Set<T>().Add(entity);
+            if (_context.SaveChanges() == 1)
             {
                 return entityInserted.Entity;
-            }else
+            }
+            else
             {
                 return null;
-            }       
+            }
         }
         public T Update(T entity)
         {
             _context.Attach(entity);
-            entity.UpdatedDate=DateTime.Now;
-            if(_context.SaveChanges()==1)
+            entity.UpdatedDate = DateTime.Now;
+            if (_context.SaveChanges() == 1)
             {
                 return entity;
-            }else
+            }
+            else
             {
                 return null;
-            }    
+            }
         }
         public bool Delete(T entity)
         {
             _context.Attach(entity);
             _context.Remove(entity);
-            return _context.SaveChanges()==1;
+            return _context.SaveChanges() == 1;
         }
         public List<T> Query(Expression<Func<T, bool>> query)
         {

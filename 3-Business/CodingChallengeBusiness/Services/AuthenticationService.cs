@@ -14,40 +14,41 @@ namespace CodingChallengeBusiness.Services
         private IUnitOfWork _uow;
         public AuthenticationService(IUnitOfWork uow)
         {
-            _uow=uow;
+            _uow = uow;
         }
 
         /// <summary>
-        /// Registeration 
+        /// Registration 
         /// </summary>
         /// <param name="request">registration informations</param>
         /// <returns>response</returns>
         public AuthenticationResponse Register(RegisterRequest request)
         {
-            AuthenticationResponse response=new AuthenticationResponse();
-            if(IsEmailAlreadyExists(request.Email))
+            AuthenticationResponse response = new AuthenticationResponse();
+            if (IsEmailAlreadyExists(request.Email))
             {
-                response.Message=Messages.EmailAlreadyUsed;
-                response.IsSuccess=false;
-                response.User=null;
+                response.Message = Messages.EmailAlreadyUsed;
+                response.IsSuccess = false;
+                response.User = null;
                 return response;
             }
             else
             {
-                var user=_uow.UserRepository.Create(new User(){
-                    Email=request.Email,
-                    FirstName=request.FirstName,
-                    LastName=request.LastName,
-                    Password=request.Password,
-                    Position=request.Position
+                var user = _uow.UserRepository.Create(new User()
+                {
+                    Email = request.Email,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Password = request.Password,
+                    Position = request.Position
                 });
-                response.Message=Messages.RegisterWithSuccess;
-                response.User=user;
-                response.IsSuccess=true;
+                response.Message = Messages.RegisterWithSuccess;
+                response.User = user;
+                response.IsSuccess = true;
                 return response;
             }
         }
-        
+
         /// <summary>
         ///  Login for authontication
         /// </summary>
@@ -55,18 +56,18 @@ namespace CodingChallengeBusiness.Services
         /// <returns >response </returns>
         public AuthenticationResponse LogIn(LoginRequest request)
         {
-            var user=_uow.UserRepository.Query(u=>u.Email==request.Email && u.Password==request.Password).FirstOrDefault();
-            var response=new AuthenticationResponse();
-            if(user==null)
+            var user = _uow.UserRepository.Query(u => u.Email == request.Email && u.Password == request.Password).FirstOrDefault();
+            var response = new AuthenticationResponse();
+            if (user == null)
             {
-                response.Message=Messages.InvalidAuthentication;
-                response.IsSuccess=false;
+                response.Message = Messages.InvalidAuthentication;
+                response.IsSuccess = false;
             }
             else
             {
-                response.User=user;
-                response.Message=Messages.LoginWithSuccess;
-                response.IsSuccess=true;
+                response.User = user;
+                response.Message = Messages.LoginWithSuccess;
+                response.IsSuccess = true;
             }
             return response;
         }
@@ -78,8 +79,8 @@ namespace CodingChallengeBusiness.Services
         /// <returns>bool</returns>
         private bool IsEmailAlreadyExists(string email)
         {
-            var user=_uow.UserRepository.GetUserByEmail(email);
-            return user!=null;
+            var user = _uow.UserRepository.GetUserByEmail(email);
+            return user != null;
         }
     }
 }

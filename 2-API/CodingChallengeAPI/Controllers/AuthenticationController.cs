@@ -17,15 +17,15 @@ namespace CodingChallengeAPI.Controllers
         private AuthenticationService _authService;
         public AuthenticationController(AuthenticationService authService)
         {
-            _authService=authService;
+            _authService = authService;
         }
 
         [HttpPost("register")]
         public ActionResult Register([FromBody]RegisterRequest request)
-        {            
+        {
             return Ok(_authService.Register(request));
         }
-        
+
         [HttpPost("Login")]
         public ActionResult Index([FromBody]LoginRequest request)
         {

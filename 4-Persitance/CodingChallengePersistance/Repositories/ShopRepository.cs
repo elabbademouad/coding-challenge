@@ -7,10 +7,15 @@ using CodingChallengePersistance.Context;
 
 namespace CodingChallengePersistance.Repositories
 {
-    public class ShopRepository :Repository<User>, IShopRepository
+    /// <summary>
+    /// implementation of IShopRepository
+    /// </summary>
+    /// <typeparam name="Shop"></typeparam>
+    public class ShopRepository : Repository<Shop>, IShopRepository
     {
-       public ShopRepository(DataContext context):base(context){
+        public ShopRepository(DataContext context) : base(context)
+        {
 
-       }
+        }
     }
 }

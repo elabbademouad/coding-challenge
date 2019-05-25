@@ -1,8 +1,13 @@
 using CodingChallengeBusiness.Entities;
 namespace CodingChallengeBusiness.Interfaces
 {
-    public interface IUserShopPreferenceRepository:IRepository<User,int>
+    /// <summary>
+    /// UserShopPreference repository interface
+    /// </summary>
+    /// <typeparam name="UserShopPreference"></typeparam>
+    /// <typeparam name="int"></typeparam>
+    public interface IUserShopPreferenceRepository : IRepository<UserShopPreference, int>
     {
-        
+
     }
 }

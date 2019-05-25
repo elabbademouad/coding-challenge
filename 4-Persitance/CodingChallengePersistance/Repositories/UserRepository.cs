@@ -8,15 +8,20 @@ using System.Linq;
 
 namespace CodingChallengePersistance.Repositories
 {
-    public class UserRepository :Repository<User>, IUserRepository
+    /// <summary>
+    /// implementation of IUserRepository
+    /// </summary>
+    /// <typeparam name="User"></typeparam>
+    public class UserRepository : Repository<User>, IUserRepository
     {
-       public UserRepository(DataContext context):base(context){
+        public UserRepository(DataContext context) : base(context)
+        {
 
-       }
+        }
 
-       public User GetUserByEmail(string email)
-       {
-           return Query(u=>u.Email==email).FirstOrDefault();
-       }
+        public User GetUserByEmail(string email)
+        {
+            return Query(u => u.Email == email).FirstOrDefault();
+        }
     }
 }
