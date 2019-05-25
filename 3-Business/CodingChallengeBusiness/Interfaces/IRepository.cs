@@ -12,8 +12,8 @@ namespace CodingChallengeBusiness.Interfaces
     {
         List<T> GetAll();
         T GetById(K id);
-        void Create(T entity);
-        void Update(T entity);
+        T Create(T entity);
+        T Update(T entity);
         bool Delete(T entity);
         List<T> Query(Expression<Func<T, bool>> query);
     }

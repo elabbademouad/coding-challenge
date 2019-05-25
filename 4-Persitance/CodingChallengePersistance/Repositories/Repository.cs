@@ -19,20 +19,32 @@ namespace CodingChallengePersistance.Repositories
         }
         public T GetById(int id)
         {
-            return _context.Set<T>().FirstOrDefault();
+            return _context.Set<T>().FirstOrDefault(e=>e.Id==id);
         }
-        public void Create(T entity)
+        public T Create(T entity)
         {
             entity.CreatedDate=DateTime.Now;
             entity.UpdatedDate=DateTime.Now;
-            _context.Set<T>().Add(entity);    
-            _context.SaveChanges();          
+            var entityInserted=_context.Set<T>().Add(entity);    
+            if(_context.SaveChanges()==1)
+            {
+                return entityInserted.Entity;
+            }else
+            {
+                return null;
+            }       
         }
-        public void Update(T entity)
+        public T Update(T entity)
         {
             _context.Attach(entity);
             entity.UpdatedDate=DateTime.Now;
-            _context.SaveChanges();          
+            if(_context.SaveChanges()==1)
+            {
+                return entity;
+            }else
+            {
+                return null;
+            }    
         }
         public bool Delete(T entity)
         {

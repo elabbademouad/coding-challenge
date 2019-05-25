@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using CodingChallengeBusiness.Interfaces;
 using CodingChallengeBusiness.Entities;
 using CodingChallengePersistance.Context;
+using System.Linq;
 
 namespace CodingChallengePersistance.Repositories
 {
@@ -11,6 +12,11 @@ namespace CodingChallengePersistance.Repositories
     {
        public UserRepository(DataContext context):base(context){
 
+       }
+
+       public User GetUserByEmail(string email)
+       {
+           return Query(u=>u.Email==email).FirstOrDefault();
        }
     }
 }
