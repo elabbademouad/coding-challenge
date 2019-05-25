@@ -17,6 +17,8 @@ using System.IO;
 using CodingChallengeAPI.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Business=CodingChallengeBusiness.Services;
+using CodingChallengePersistance.Utilities;
+
 namespace CodingChallengeAPI
 {
     public class Startup
@@ -38,11 +40,10 @@ namespace CodingChallengeAPI
             services.AddMvc();
             services.AddCors();
             services.AddDirectoryBrowser();
-            //ApplicationMapperConfig mapperConfig = new ApplicationMapperConfig(Configuration);
-            //mapperConfig.Initialize();
             services.AddSingleton(Configuration);
-            //Unit of work DI  
+            //Persitance DI  
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IMapUtility,MapUtility>();
             //Service DI (Business layer)
             services.AddScoped<Business.AuthenticationService>();        
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
