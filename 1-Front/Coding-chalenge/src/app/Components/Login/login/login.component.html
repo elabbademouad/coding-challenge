@@ -1,0 +1,21 @@
+<div class="card login-card" >
+  <div class="card-content">
+      <form #loginForm="ngForm" class="row">
+          <div class="input-field col s12">
+              <input placeholder="Email"  [(ngModel)]="login.email"  #email="ngModel"  name="email" required type="email">
+              <span class="error" *ngIf="email.invalid &&  (email.dirty || email.touched)" >* Email is required </span>
+          </div>
+          
+          <div class="input-field col s12">
+              <input placeholder="Passwords" #password="ngModel" required [(ngModel)]="login.password" name="password"  type="password">
+              <span class="error" *ngIf="password.invalid && (password.dirty || password.touched)" >* Password is required </span>
+          </div>
+          <div>           
+          </div>
+          <div class="col s12">
+              <a class="waves-effect" routerLink="/register">Register</a>
+              <input [disabled]="loginForm.invalid" class="waves-effect waves-light blue darken-2  btn right" type="submit" (click)="handleLoginClick()" value="Login"/>
+          </div> 
+      </form>
+  </div>  
+</div>
