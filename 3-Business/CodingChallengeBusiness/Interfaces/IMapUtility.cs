@@ -10,7 +10,7 @@ namespace CodingChallengeBusiness.Interfaces
         /// </summary>
         /// <param name="origine">represents  latitude,longitude of origine </param>
         /// <param name="destination">represents  latitude,longitude of destination</param>
-        /// <returns>-1 : mis calculation</returns>
-        decimal CalculateDistance(string origine,string destination);
+        /// <returns>max decimal : mis calculation</returns>
+        decimal CalculateDistance(string origine, string destination);
     }
 }

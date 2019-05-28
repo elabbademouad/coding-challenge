@@ -50,7 +50,7 @@ namespace CodingChallengeBusiness.Services
         }
 
         /// <summary>
-        ///  Login for authontication
+        ///  Login for authentication
         /// </summary>
         /// <param name="request">Login informations</param>
         /// <returns >response </returns>

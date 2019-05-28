@@ -46,6 +46,7 @@ namespace CodingChallengeAPI
             services.AddScoped<IMapUtility, MapUtility>();
             //Service DI (Business layer)
             services.AddScoped<Business.AuthenticationService>();
+            services.AddScoped<Business.ShopService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // configure basic authentication 
             services.AddAuthentication("Basic")

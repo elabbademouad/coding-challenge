@@ -43,7 +43,7 @@ namespace CodingChallengePersistance.Utilities
             catch (System.Exception)
             {
 
-                return -1;
+                return decimal.MaxValue;
             }
 
         }

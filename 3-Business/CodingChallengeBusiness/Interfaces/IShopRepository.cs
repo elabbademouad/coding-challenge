@@ -1,4 +1,5 @@
 using CodingChallengeBusiness.Entities;
+using System.Collections.Generic;
 namespace CodingChallengeBusiness.Interfaces
 {
     /// <summary>
