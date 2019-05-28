@@ -19,16 +19,16 @@
           <div class="input-field col s12">
             <span class="grey-text ">Email :</span>
             <input placeholder="Email" #email="ngModel" name="email" required [(ngModel)]="register.email" type="text">
-            <span *ngIf="email.invalid && (email.dirty || email.touched)" style="color: red;">* user name is
+            <span *ngIf="email.invalid && (email.dirty || email.touched)" class="error">* user name is
               required</span>
-            <span style="color: red;">{{regiterErrorMessage}}</span>
+            <span class="error">{{regiterErrorMessage}}</span>
 
           </div>
           <div class="input-field col s12">
             <span class="grey-text ">Passwords :</span>
             <input #password="ngModel" name="password" required placeholder="Passwords" [(ngModel)]="register.password"
               type="password">
-            <span *ngIf="password.invalid && (password.dirty || password.touched)" style="color: red;">* password is
+            <span *ngIf="password.invalid && (password.dirty || password.touched)" class="error">* password is
               required</span>
           </div>
           <div class="input-field col s12">
@@ -36,7 +36,7 @@
             <input placeholder="Passwords" #confirmPassword="ngModel" [(ngModel)]="confirmPass" name="confirmPassword"
               type="password">
             <span *ngIf="password.value !== confirmPassword.value && (confirmPassword.dirty || confirmPassword.touched)"
-              style="color: red;">*confirm password no match password</span>
+              class="error">*confirm password no match password</span>
           </div>
           <div class="col s12">
             <input [disabled]="registerForm.invalid || password.value !== confirmPassword.value"

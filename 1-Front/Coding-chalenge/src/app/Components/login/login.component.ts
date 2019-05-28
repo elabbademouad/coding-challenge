@@ -11,10 +11,10 @@ import { AuthenticationResponse } from "src/app/Model/authentication-response";
 })
 export class LoginComponent {
   login: LoginRequest;
-
+  message:string;
   constructor(
     private _authService: AuthenticationService,
-    private _route: Router
+    private _router: Router
   ) {
     this.login = new LoginRequest();
   }
@@ -27,9 +27,10 @@ export class LoginComponent {
       .Login(this.login)
       .subscribe((data: AuthenticationResponse) => {
         if (data.isSuccess) {
-          alert(data.message);
+          this._router.navigate(['']);  
+          this.message="";        
         } else {
-          alert(data.message);
+          this.message=data.message;
         }
       });
   }

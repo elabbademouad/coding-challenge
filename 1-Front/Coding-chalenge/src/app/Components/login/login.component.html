@@ -1,11 +1,11 @@
 <div class="card login-card">
   <div class="card-content">
     <form #loginForm="ngForm" class="row">
+        <span class="error">{{message}}</span>
       <div class="input-field col s12">
         <input placeholder="Email" [(ngModel)]="login.email" #email="ngModel" name="email" required type="email">
         <span class="error" *ngIf="email.invalid &&  (email.dirty || email.touched)">* Email is required </span>
       </div>
-
       <div class="input-field col s12">
         <input placeholder="Passwords" #password="ngModel" required [(ngModel)]="login.password" name="password"
           type="password">
