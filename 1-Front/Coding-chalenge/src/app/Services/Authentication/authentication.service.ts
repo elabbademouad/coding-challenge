@@ -4,16 +4,17 @@ import { HttpClient } from "@angular/common/http";
 import { LoginRequest } from "src/app/Model/login-request";
 import { AuthenticationResponse } from "src/app/Model/authentication-response";
 import { RegisterRequest } from "src/app/Model/register-request";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthenticationService extends BaseService {
-  constructor(_http: HttpClient) {
+  constructor(_http: HttpClient,
+              private _router:Router) {
     super(_http);
   }
-
   private loginApi: string = "api/authentication/login";
   /**
    * Post : Login
@@ -34,7 +35,7 @@ export class AuthenticationService extends BaseService {
    * @param registerRequest RegisterRequest
    * @returns Observable<AuthenticationResponse>
    */
-  public Register(registerRequest: RegisterRequest): Observable<AuthenticationResponse> {
+  public Register(registerRequest: RegisterRequest ): Observable<AuthenticationResponse> {
     return this.http.post<AuthenticationResponse>(
       this.BaseUrl + this.registerApi,
       registerRequest

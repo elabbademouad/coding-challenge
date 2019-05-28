@@ -1,24 +1,24 @@
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { LoginRequest } from "src/app/Model/login-request";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { environment } from "../../../environments/environment";
 
 export class BaseService {
   protected http: HttpClient;
   protected BaseUrl: string;
+  currentUserSubject: Subject<LoginRequest>;
 
   constructor(http: HttpClient) {
     this.http = http;
     this.BaseUrl = environment.baseUrl;
+    this.currentUserSubject = new Subject<LoginRequest>();
   }
 
   /**
    * create http headers with credentials
    */
-  protected createHttpHeaders(): HttpHeaders {
-    let credentials: LoginRequest = JSON.parse(
-      localStorage.getItem("Credentials")
-    );
+  public createHttpHeaders(): HttpHeaders {
+    let credentials: LoginRequest = this.getCredentials();
     if (credentials === null) {
       credentials = new LoginRequest();
     }
@@ -38,14 +38,14 @@ export class BaseService {
    * save credentials in localstorage
    * @param LoginRequest login infos
    */
-  protected setCredentials(loginRequest: LoginRequest) {
+  public setCredentials(loginRequest: LoginRequest) {
     localStorage.setItem("Credentials", JSON.stringify(loginRequest));
   }
 
   /**
    * clear credentials from localstorage
    */
-  protected clearCredentials() {
+  public clearCredentials() {
     localStorage.removeItem("Credentials");
   }
 
@@ -53,8 +53,14 @@ export class BaseService {
    * get credentials from localstorage
    * @returns LoginRequest
    */
-  protected getCredentials(): LoginRequest {
-    return JSON.parse(localStorage.getItem("Credentials"));
+  public getCredentials(): LoginRequest {
+    let credentials: LoginRequest = JSON.parse(
+      localStorage.getItem("Credentials")
+    );
+    if (credentials === null) {
+      credentials = new LoginRequest();
+    }
+    return credentials;
   }
 
   /**
@@ -78,5 +84,22 @@ export class BaseService {
     return this.http.post<T>(this.BaseUrl + url, body, {
       headers: this.createHttpHeaders()
     });
+  }
+
+  /**
+   * get current user as observable
+   * @returns Observable<T>
+   */
+  public getCurrentUser() {
+    return this.currentUserSubject.asObservable();
+  }
+
+  /**
+   * set current and notify subscribers
+   * @param login LoginRequest
+   * @returns Observable<LoginRequest>
+   */
+  public setCurrentUser(login: LoginRequest) {
+    this.currentUserSubject.next(login);
   }
 }
