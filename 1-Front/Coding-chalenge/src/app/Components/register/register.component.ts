@@ -3,6 +3,7 @@ import { AuthenticationService } from "src/app/Services/Authentication/authentic
 import { RegisterRequest } from "src/app/Model/register-request";
 import { AuthenticationResponse } from "src/app/Model/authentication-response";
 import { Router } from "@angular/router";
+import { Position } from 'src/app/Model/Position';
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -28,7 +29,7 @@ export class RegisterComponent {
       .subscribe((response: AuthenticationResponse) => {
         if (response.isSuccess) {
           this.regiterErrorMessage = "";
-          this.router.navigate(['login']);
+          this.router.navigate(["login"]);
         } else {
           this.regiterErrorMessage = response.message;
         }
@@ -38,7 +39,7 @@ export class RegisterComponent {
   /**
    * handle change map position event
    */
-  handleChangePosition(event) {
+  handleChangePosition(event:Position) {
     this.register.position = event;
   }
 }

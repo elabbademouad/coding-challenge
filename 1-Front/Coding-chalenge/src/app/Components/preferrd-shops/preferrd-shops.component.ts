@@ -1,25 +1,26 @@
-import { Component, OnInit } from "@angular/core";
-import { Shop } from "src/app/Model/shop";
-import { ShopActionEnum } from "src/app/Enums/shop-action-enum";
-import { ShopAction } from "src/app/Model/shop-action";
+import { Component, OnInit } from '@angular/core';
+import { Shop } from 'src/app/Model/shop';
+import { ShopActionEnum } from 'src/app/Enums/shop-action-enum';
 import { ShopService } from 'src/app/Services/Shop/shop.service';
+import { ShopAction } from 'src/app/Model/shop-action';
 
 @Component({
-  selector: "app-nearby-shops",
-  templateUrl: "./nearby-shops.component.html",
-  styleUrls: ["./nearby-shops.component.css"]
+  selector: 'app-preferrd-shops',
+  templateUrl: './preferrd-shops.component.html',
+  styleUrls: ['./preferrd-shops.component.css']
 })
-export class NearbyShopsComponent implements OnInit {
+export class PreferrdShopsComponent implements OnInit {
+
   loaded:boolean;
   shops: Array<Shop>;
   actions: Array<ShopActionEnum>;
   constructor(private _shopService:ShopService) {
-    this.actions = [ShopActionEnum.Like, ShopActionEnum.Dislike];
+    this.actions = [ShopActionEnum.Remove];
     this.shops=[];
   }
  ngOnInit(){
    console.log("dddd");
-    this._shopService.getNearbyShops()
+    this._shopService.getPreferredShops()
       .subscribe((data:Array<Shop>)=>{
         console.log(data);
           this.shops=data;
@@ -36,4 +37,5 @@ export class NearbyShopsComponent implements OnInit {
         break;
     }
   }
+
 }

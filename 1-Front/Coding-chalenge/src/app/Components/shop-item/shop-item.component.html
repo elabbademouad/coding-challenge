@@ -1,3 +1,11 @@
-<p>
-  shop-item works!
-</p>
+<div class="card shop">
+  <div class="card-content">
+    <span class="card-title">{{shop.name}}</span>
+    <div class="card-image">
+      <img src="{{shop.picture}}">
+    </div>
+  </div>
+  <div class="card-action">
+    <a *ngFor="let action of actions" (click)="handleActionClick(action)" >{{action}}</a>
+  </div>
+</div>

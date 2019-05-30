@@ -12,11 +12,13 @@ import { GoogleMapComponent } from './Components/google-map/google-map.component
 import { NavComponent } from './Components/nav/nav.component';
 import { ShopItemComponent } from './Components/shop-item/shop-item.component';
 import { NearbyShopsComponent } from './Components/nearby-shops/nearby-shops.component';
-import { AuthGardService} from './Services/AuthGard/auth-gard.service'
+import { AuthGardService} from './Services/AuthGard/auth-gard.service';
+import { PreferrdShopsComponent } from './Components/preferrd-shops/preferrd-shops.component'
 const appRoute:Routes=[
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"nearbyshops",component:NearbyShopsComponent,canActivate:[AuthGardService]},
+  {path:"preferredShops",component:PreferrdShopsComponent,canActivate:[AuthGardService]},
   {path:"",component:NearbyShopsComponent,canActivate:[AuthGardService]},
 ]
 @NgModule({
@@ -28,6 +30,7 @@ const appRoute:Routes=[
     NavComponent,
     ShopItemComponent,
     NearbyShopsComponent,
+    PreferrdShopsComponent,
   ],
   imports: [
     BrowserModule,

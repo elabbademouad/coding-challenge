@@ -1,0 +1,10 @@
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.loader {
+  margin-left: 45%;
+  margin-top: 20%;
+}

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { Position } from 'src/app/Model/Position';
 
 @Component({
   selector: "app-google-map",
@@ -7,16 +8,20 @@ import { Component, EventEmitter, Output } from "@angular/core";
 })
 export class GoogleMapComponent {
   @Output()
-  onChangePosition: EventEmitter<string>;
+  onChangePosition: EventEmitter<Position>;
+  position:Position;
   lat: number = 34.65323;
   lng: number = -1.8957377000000002;
   constructor() {
-    this.onChangePosition = new EventEmitter<string>();
+    this.position=new Position();
+    this.position.latitude=34.65323;
+    this.position.longitude=-1.8957377000000002;
+    this.onChangePosition = new EventEmitter<Position>();
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.onChangePosition.emit(this.lat + "," + this.lng);
+      navigator.geolocation.getCurrentPosition(data => {
+        this.position.latitude = data.coords.latitude;
+        this.position.longitude = data.coords.longitude;
+        this.onChangePosition.emit(this.position);
       });
     }
   }
@@ -26,8 +31,8 @@ export class GoogleMapComponent {
    * @param {any}event current map position
    */
   handleChangePosition(event: any) {
-    this.lat = event.coords.lat;
-    this.lng = event.coords.lng;
-    this.onChangePosition.emit(this.lat + "," + this.lng);
+    this.position.latitude = event.coords.latitude;
+    this.position.longitude = event.coords.longitude;
+    this.onChangePosition.emit(this.position);
   }
 }
