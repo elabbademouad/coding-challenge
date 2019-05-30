@@ -27,5 +27,19 @@ namespace CodingChallengePersistance.Context
         {
             this.connectionString = connectionString;
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            //Property Configurations
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.OwnsOne(e => e.Position);
+            });
+            modelBuilder.Entity<Shop>(entity =>
+            {
+                entity.OwnsOne(e => e.Position);
+            });
+        }
     }
 }

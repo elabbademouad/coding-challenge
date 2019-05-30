@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingChallengePersistance.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190524052915_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190530164720_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,6 @@ namespace CodingChallengePersistance.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("Picture");
-
-                    b.Property<string>("Position");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -52,8 +50,6 @@ namespace CodingChallengePersistance.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("Password");
-
-                    b.Property<string>("Position");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -84,6 +80,48 @@ namespace CodingChallengePersistance.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserShopPreferences");
+                });
+
+            modelBuilder.Entity("CodingChallengeBusiness.Entities.Shop", b =>
+                {
+                    b.OwnsOne("CodingChallengeBusiness.Entities.Position", "Position", b1 =>
+                        {
+                            b1.Property<int>("ShopId");
+
+                            b1.Property<double>("Latitude");
+
+                            b1.Property<double>("Longitude");
+
+                            b1.HasKey("ShopId");
+
+                            b1.ToTable("Shops");
+
+                            b1.HasOne("CodingChallengeBusiness.Entities.Shop")
+                                .WithOne("Position")
+                                .HasForeignKey("CodingChallengeBusiness.Entities.Position", "ShopId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+                });
+
+            modelBuilder.Entity("CodingChallengeBusiness.Entities.User", b =>
+                {
+                    b.OwnsOne("CodingChallengeBusiness.Entities.Position", "Position", b1 =>
+                        {
+                            b1.Property<int>("UserId");
+
+                            b1.Property<double>("Latitude");
+
+                            b1.Property<double>("Longitude");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("Users");
+
+                            b1.HasOne("CodingChallengeBusiness.Entities.User")
+                                .WithOne("Position")
+                                .HasForeignKey("CodingChallengeBusiness.Entities.Position", "UserId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 
             modelBuilder.Entity("CodingChallengeBusiness.Entities.UserShopPreference", b =>

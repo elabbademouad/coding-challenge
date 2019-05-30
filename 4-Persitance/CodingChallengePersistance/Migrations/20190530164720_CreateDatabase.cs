@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodingChallengePersistance.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,9 @@ namespace CodingChallengePersistance.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Position = table.Column<string>(nullable: true),
-                    Picture = table.Column<string>(nullable: true)
+                    Picture = table.Column<string>(nullable: true),
+                    Position_Latitude = table.Column<double>(nullable: false),
+                    Position_Longitude = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +37,8 @@ namespace CodingChallengePersistance.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    Position = table.Column<string>(nullable: true)
+                    Position_Latitude = table.Column<double>(nullable: false),
+                    Position_Longitude = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
