@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {  CanActivate,  ActivatedRouteSnapshot,  RouterStateSnapshot, Router } from "@angular/router";
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthenticationService } from "../Authentication/authentication.service";
 import { map } from "rxjs/operators";
@@ -17,9 +17,9 @@ export class AuthGardService implements CanActivate {
     private _router: Router
   ) {}
   canActivate( _route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
-    console.log(this._authService.getCredentials());
+    this._authService.getCredentials();
     return this._authService.Login(this._authService.getCredentials()).pipe(
-      map(response => {debugger
+      map(response => {
         if (!response.isSuccess) {
           this._router.navigate(["login"]);
           this._authService.setCurrentUser(null);
