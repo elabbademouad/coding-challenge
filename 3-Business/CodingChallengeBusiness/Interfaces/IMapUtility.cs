@@ -1,3 +1,5 @@
+using CodingChallengeBusiness.Entities;
+
 namespace CodingChallengeBusiness.Interfaces
 {
     /// <summary>
@@ -8,9 +10,9 @@ namespace CodingChallengeBusiness.Interfaces
         /// <summary>
         ///  calculate distance between 2 position
         /// </summary>
-        /// <param name="origine">represents  latitude,longitude of origine </param>
-        /// <param name="destination">represents  latitude,longitude of destination</param>
-        /// <returns>max decimal : mis calculation</returns>
-        decimal CalculateDistance(string origine, string destination);
+        /// <param name="from">represents first position latitude,longitude </param>
+        /// <param name="to">position second represents  latitude,longitude</param>
+        /// <returns>double</returns>
+        double CalculateDistance(Position from, Position to);
     }
 }

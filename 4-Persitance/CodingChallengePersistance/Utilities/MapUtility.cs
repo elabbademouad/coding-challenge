@@ -5,47 +5,23 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using GeoCoordinatePortable;
+using System.Text;
+using CodingChallengeBusiness.Entities;
+
 namespace CodingChallengePersistance.Utilities
 {
     /// <summary>
-    /// implementation of IMapUtility using Google map API
+    /// implementation of IMapUtility using GeoCoordinate
     /// </summary>
     public class MapUtility : IMapUtility
     {
-        private readonly string _url;
-        private readonly string _apiKey;
 
-        public MapUtility(IConfiguration config)
+        public double CalculateDistance(Position from, Position to)
         {
-            _url = config["GoogleMapSettings:ApiUrl"];
-            _apiKey = config["GoogleMapSettings:ApiKey"];
-        }
-        public decimal CalculateDistance(string origine, string destination)
-        {
-            string result = string.Empty;
-            string url = string.Format(_url, origine, destination, _apiKey);
-
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.AutomaticDecompression = DecompressionMethods.GZip;
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                using (Stream stream = response.GetResponseStream())
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    result = reader.ReadToEnd();
-                }
-
-                JObject apiResult = JObject.Parse(result);
-                var distance = decimal.Parse((string)apiResult["rows"][0]["elements"][0]["distance"]["value"]);
-                return distance;
-            }
-            catch (System.Exception)
-            {
-
-                return decimal.MaxValue;
-            }
-
+            var origineCord = new GeoCoordinate(from.Latitude, from.Longitude);
+            var destinationCord = new GeoCoordinate(to.Latitude, to.Longitude);
+            return origineCord.GetDistanceTo(destinationCord);
         }
     }
 }
