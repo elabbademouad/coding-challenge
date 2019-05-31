@@ -7,6 +7,8 @@ using CodingChallengeBusiness.dto;
 using Microsoft.AspNetCore.Authorization;
 using CodingChallengeBusiness.Services;
 using System.Security.Claims;
+using CodingChallengeBusiness.Enums;
+using CodingChallengeAPI.Model;
 
 namespace CodingChallengeAPI.Controllers
 {
@@ -33,6 +35,20 @@ namespace CodingChallengeAPI.Controllers
         {
             var userId = GetCurrentUserId();
             return Ok(_shopService.GetPreferredShops(userId));
+        }
+
+        [HttpPost("LikeOrDislike")]
+        public ActionResult LikeOrDislike([FromBody] UserShopPrefernceRequest resuest)
+        {
+            var userId = GetCurrentUserId();
+            return Ok(_shopService.LikeOrDislikeShop(resuest.ShopId,resuest.Status,userId));
+        }
+
+        [HttpPost("RemoveShopfromPreferred")]
+        public ActionResult RemoveShopfromPreferred([FromBody] int shopId)
+        {
+            var userId = GetCurrentUserId();
+            return Ok(_shopService.RemoveShopfromPreferred(shopId,userId));
         }
 
         /// <summary>

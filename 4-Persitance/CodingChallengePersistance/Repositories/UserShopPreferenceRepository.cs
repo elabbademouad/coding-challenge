@@ -18,17 +18,14 @@ namespace CodingChallengePersistance.Repositories
             _dataContext = context;
         }
 
-        /// <summary>
-        ///  get preferred shops by user id
-        /// </summary>
-        /// <param name="userId">user id</param>
-        /// <returns>shops</returns>
-        public List<Shop> GetPreferredShops(int userId)
+
+        public List<Shop> GetShopsByStatus(int userId,ShopStatus status)
         {
-            var result = _dataContext.UserShopPreferences.Include(s => s.Shop)
-                                            .Include(u => u.User)
-                                            .Where(o => o.User.Id == userId && o.Status == ShopStatus.Liked)
-                                            .Select(r => r.Shop).ToList();
+            var result = QueryWithAggregations(
+                (o) => o.User.Id == userId && o.Status == status,
+                "User","Shop")
+                ?.Select(r => r.Shop)
+                ?.ToList();
             return result;
         }
     }

@@ -5,12 +5,11 @@ import { environment } from "../../../environments/environment";
 
 export class BaseService {
   protected http: HttpClient;
-  protected BaseUrl: string;
+  static BaseUrl: string = environment.baseUrl;
   currentUserSubject: Subject<LoginRequest>;
 
   constructor(http: HttpClient) {
     this.http = http;
-    this.BaseUrl = environment.baseUrl;
     this.currentUserSubject = new Subject<LoginRequest>();
   }
 
@@ -27,10 +26,7 @@ export class BaseService {
       "Authorization",
       "Basic " + btoa(credentials.email + ":" + credentials.password)
     );
-    headers = headers.append(
-      "Content-Type",
-      "application/x-www-form-urlencoded"
-    );
+    headers = headers.append("Content-Type", "application/json");
     return headers;
   }
 
@@ -69,7 +65,7 @@ export class BaseService {
    * @returns Observable<T>
    */
   protected httpGet<T>(url: string): Observable<T> {
-    return this.http.get<T>(this.BaseUrl + url, {
+    return this.http.get<T>(BaseService.BaseUrl + url, {
       headers: this.createHttpHeaders()
     });
   }
@@ -81,7 +77,7 @@ export class BaseService {
    * @returns Observable<T>
    */
   protected httpPost<T>(url: string, body: any): Observable<T> {
-    return this.http.post<T>(this.BaseUrl + url, body, {
+    return this.http.post<T>(BaseService.BaseUrl + url, body, {
       headers: this.createHttpHeaders()
     });
   }

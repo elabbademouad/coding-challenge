@@ -5,6 +5,8 @@ using CodingChallengeBusiness.Interfaces;
 using CodingChallengePersistance.Context;
 using System.Linq;
 using CodingChallengeBusiness.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace CodingChallengePersistance.Repositories
 {
@@ -63,6 +65,17 @@ namespace CodingChallengePersistance.Repositories
         public List<T> Query(Expression<Func<T, bool>> query)
         {
             return _context.Set<T>().Where(query).ToList();
+        }
+
+        public List<T> QueryWithAggregations(Expression<Func<T, bool>> query,params string[] includedProperies)
+        {
+            
+            IQueryable<T> queryResult=_context.Set<T>();
+            foreach (var property in includedProperies)
+            {
+                queryResult=queryResult.Include(property);
+            }
+            return queryResult.Where(query).ToList();
         }
     }
 }

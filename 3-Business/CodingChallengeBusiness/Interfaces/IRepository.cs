@@ -46,5 +46,14 @@ namespace CodingChallengeBusiness.Interfaces
         /// <returns>bool : is deleted</returns>
         bool Delete(T entity);
         List<T> Query(Expression<Func<T, bool>> query);
+
+        /// <summary>
+        ///  query including navigation properties 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="includedProperies"></param>
+        /// <returns></returns>
+        List<T> QueryWithAggregations(Expression<Func<T, bool>> query,params string[] includedProperies);
+
     }
 }
