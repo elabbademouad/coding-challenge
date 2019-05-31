@@ -1,5 +1,9 @@
-import { Position } from './Position';
+import { Position } from "./Position";
 
+/**
+ * registration request
+ *
+ */
 export class RegisterRequest {
   firstName: string;
   lastName: string;

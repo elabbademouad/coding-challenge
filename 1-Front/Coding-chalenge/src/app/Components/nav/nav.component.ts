@@ -14,7 +14,7 @@ export class NavComponent {
     private _router: Router
   ) {
     _authService.getCurrentUser().subscribe(data => {
-      this.display = data!=null;
+      this.display = data != null;
     });
   }
 

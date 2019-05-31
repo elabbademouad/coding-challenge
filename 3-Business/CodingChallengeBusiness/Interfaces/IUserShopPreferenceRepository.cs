@@ -1,5 +1,8 @@
 using CodingChallengeBusiness.Entities;
+using CodingChallengeBusiness.Enums;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 namespace CodingChallengeBusiness.Interfaces
 {
     /// <summary>
@@ -9,6 +12,12 @@ namespace CodingChallengeBusiness.Interfaces
     /// <typeparam name="int"></typeparam>
     public interface IUserShopPreferenceRepository : IRepository<UserShopPreference, int>
     {
-        List<Shop> GetPreferredShops(int userId);
+        /// <summary>
+        /// Get  shops by user and status 
+        /// </summary>
+        /// <param name="userId">user identifyer</param>
+        /// <param name="status">shop status enum</param>
+        /// <returns>Shops list</returns>
+        List<Shop> GetShopsByStatus(int userId,ShopStatus status);
     }
 }
