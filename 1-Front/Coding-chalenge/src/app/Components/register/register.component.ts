@@ -3,7 +3,7 @@ import { AuthenticationService } from "src/app/Services/Authentication/authentic
 import { RegisterRequest } from "src/app/Model/register-request";
 import { AuthenticationResponse } from "src/app/Model/authentication-response";
 import { Router } from "@angular/router";
-import { Position } from 'src/app/Model/Position';
+import { Position } from "src/app/Model/Position";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -39,7 +39,7 @@ export class RegisterComponent {
   /**
    * handle change map position event
    */
-  handleChangePosition(event:Position) {
+  handleChangePosition(event: Position) {
     this.register.position = event;
   }
 }
