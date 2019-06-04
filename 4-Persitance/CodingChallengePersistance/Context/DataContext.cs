@@ -41,5 +41,10 @@ namespace CodingChallengePersistance.Context
                 entity.OwnsOne(e => e.Position);
             });
         }
+
+        public void Migrate()
+        {
+            this.Database.Migrate();
+        }
     }
 }

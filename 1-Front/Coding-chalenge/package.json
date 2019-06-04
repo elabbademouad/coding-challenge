@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "dotnet run ../2-API/CodingChallengeAPI/CodingChallengeAPI.csproj ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

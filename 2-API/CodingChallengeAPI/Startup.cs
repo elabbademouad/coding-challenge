@@ -18,6 +18,7 @@ using CodingChallengeAPI.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Business = CodingChallengeBusiness.Services;
 using CodingChallengePersistance.Utilities;
+using CodingChallengePersistance.Context;
 
 namespace CodingChallengeAPI
 {
@@ -56,9 +57,14 @@ namespace CodingChallengeAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (var context = new DataContext(Configuration["DataBaseSettings:ConnectionsString"]))
+            {
+                context.Migrate();
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
             else
             {
@@ -76,6 +82,7 @@ namespace CodingChallengeAPI
             )
             .UseHttpsRedirection()
             .UseAuthentication()
+            .UseDefaultFiles()
             .UseMvc();
         }
     }
